@@ -67,7 +67,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             'delete' => function ($url, $model) {
                                 return Html::a('<span class="glyphicon glyphicon-trash"></span>', ['book-editor/delete', 'id' => $model->id], [
                                     'title' => 'Удаление книги',
-                                    'data-confirm' => "Вы уверены, что хотите удалить эту запись?"
+                                    'data-confirm' => "Вы уверены, что хотите удалить запись об этой книге?"
                                 ]);
                             },
                         ],

@@ -29,10 +29,10 @@ class Book extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['fid_author', 'title'], 'required'],
             [['fid_author'], 'integer'],
-            [['title'], 'required'],
             [['title'], 'string', 'max' => 300],
-            [['fid_author'], 'exist', 'skipOnError' => true, 'targetClass' => Author::className(), 'targetAttribute' => ['fid_author' => 'id']],
+            [['fid_author'], 'exist', 'skipOnError' => true, 'targetClass' => Author::class, 'targetAttribute' => ['fid_author' => 'id']],
         ];
     }
 
@@ -42,9 +42,9 @@ class Book extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'fid_author' => 'Fid Author',
-            'title' => 'Title',
+            'id' => 'Идентификатор книги',
+            'fid_author' => 'Автор книги',
+            'title' => 'Наименование книги',
         ];
     }
 
@@ -53,6 +53,6 @@ class Book extends \yii\db\ActiveRecord
      */
     public function getAuthor()
     {
-        return $this->hasOne(Author::className(), ['id' => 'fid_author']);
+        return $this->hasOne(Author::class, ['id' => 'fid_author']);
     }
 }

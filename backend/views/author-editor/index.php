@@ -53,6 +53,12 @@ $this->params['breadcrumbs'][] = $this->title;
                         'attribute' => 'birthday',
                     ],
                     [
+                        'label' => 'Количество книг автора',
+                        'value' => function ($model) {
+                            return $model->getBooks()->count();
+                        }
+                    ],
+                    [
                         'class' => \yii\grid\ActionColumn::class,
                         'template' => '{view} {update} {delete}',
                         'buttons' => [
@@ -69,7 +75,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             'delete' => function ($url, $model) {
                                 return Html::a('<span class="glyphicon glyphicon-trash"></span>', ['author-editor/delete', 'id' => $model->id], [
                                     'title' => 'Удаление автора',
-                                    'data-confirm' => "Вы уверены, что хотите удалить эту запись?"
+                                    'data-confirm' => "Вы уверены, что хотите удалить автора? Учтите, также автоматически удалятся все книги связанные с данным автором!"
                                 ]);
                             },
                         ],

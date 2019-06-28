@@ -13,8 +13,7 @@ class BookEditorController extends Controller
 {
     public function actionIndex()
     {
-        $books = Book::find()
-            ->joinWith('author', true, 'INNER JOIN');
+        $books = Book::find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $books,

@@ -2,6 +2,7 @@
 
 use kartik\grid\GridView;
 use yii\helpers\Html;
+use yii\helpers\ArrayHelper;
 
 /** @var \yii\web\View $this */
 /** @var \yii\data\ActiveDataProvider $dataProvider */
@@ -20,21 +21,30 @@ $this->title = 'Библиотека авторов и книг';
                 'summary' => '',
                 'columns' => [
                     [
-                        'label' => 'Наименование книги',
-                        'attribute' => 'title'
-                    ],
-                    [
                         'label' => 'Имя и фамилия автора',
                         'value' => function ($model) {
-                            return $model->author->name . ' ' . $model->author->surname;
+                            return $model->name . ' ' . $model->surname;
                         }
                     ],
                     [
-                        'label' => 'Дата рождения автора',
-                        'value' => function ($model) {
-                            return $model->author->birthday;
-                        }
+                        'label' => 'Дата рождения',
+                        'attribute' => 'birthday',
                     ],
+                    [
+                        'label' => 'Книги автора',
+                        'value' => function ($model) {
+                            $books = $model->getBooks()->asArray()->all();
+
+                            if (empty($books)) {
+                                return '<span class="text-danger">У этого автора ещё нет книг в библиотеке</span>';
+                            }
+
+                            return implode('<br>', ArrayHelper::map($books, 'id', function ($model) {
+                                return Html::encode($model['title']);
+                            }));
+                        },
+                        'format' => 'html',
+                    ]
                 ]
             ]); ?>
         </div>

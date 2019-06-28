@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "authors".
@@ -43,10 +44,10 @@ class Author extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'name' => 'Name',
-            'surname' => 'Surname',
-            'birthday' => 'Birthday',
+            'id' => 'Идентификатор автора',
+            'name' => 'Имя автора',
+            'surname' => 'Фамилия автора',
+            'birthday' => 'Дата рождения автора',
         ];
     }
 
@@ -55,6 +56,20 @@ class Author extends \yii\db\ActiveRecord
      */
     public function getBooks()
     {
-        return $this->hasMany(Book::className(), ['fid_author' => 'id']);
+        return $this->hasMany(Book::class, ['fid_author' => 'id']);
+    }
+
+    /**
+     * @return array
+     */
+    public static function getMappedAuthors() : array
+    {
+        $authors = self::find()
+            ->asArray()
+            ->all();
+
+        return ArrayHelper::map($authors, 'id', function ($model) {
+            return $model['name'] . ' ' . $model['surname'];
+        });
     }
 }

@@ -3,17 +3,17 @@
 namespace frontend\controllers;
 
 use yii\web\Controller;
-use common\models\Book;
+use common\models\Author;
 use yii\data\ActiveDataProvider;
 
 class LibraryController extends Controller
 {
     public function actionIndex()
     {
-        $books = Book::find();
+        $authors = Author::find();
 
         $dataProvider = new ActiveDataProvider([
-            'query' => $books,
+            'query' => $authors,
             'pagination' => [
                 'pageSize' => 20,
             ],

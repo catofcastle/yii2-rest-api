@@ -16,7 +16,7 @@ class m190626_124723_create_books_table extends Migration
     {
         $this->createTable($this->tableName, [
             'id' => $this->primaryKey(11)->comment('Первичный ключ'),
-            'fid_author' => $this->integer(11)->comment('Связь с таблицей авторов'),
+            'fid_author' => $this->integer(11)->notNull()->comment('Связь с таблицей авторов'),
             'title' => $this->string(300)->notNull()->comment('Название книги'),
         ]);
 
